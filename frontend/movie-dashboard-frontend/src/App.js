@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import './App.css';
 import TopGrossMovies from './components/TopGrossMovies';
@@ -9,21 +8,31 @@ function App() {
     const [year, setYear] = useState(2020);
 
     return (
-        <div className="App">
+        <div className="App container-fluid">
             <header className="App-header">
                 <h1>Movie Dashboard</h1>
-                <div>
+                <div className="input-container form-group">
                     <label>Enter Year: </label>
                     <input 
                         type="number" 
+                        className="form-control"
                         value={year} 
                         onChange={e => setYear(e.target.value)} 
                     />
                 </div>
-                <TopGrossMovies year={year} />
-                <TopVotedMovies />
-                <TopRatedMovies year={year} />
             </header>
+            <div className="chart-container mb-4">
+                <h2>Top Gross Movies for {year}</h2>
+                <TopGrossMovies year={year} />
+            </div>
+            <div className="chart-container mb-4">
+                <h2>Top Rated Movies for {year}</h2>
+                <TopRatedMovies year={year} />
+            </div>
+            <div className="chart-container mb-4">
+                <h2>Top Voted Movies of All Time</h2>
+                <TopVotedMovies />
+            </div>
         </div>
     );
 }

@@ -8,6 +8,13 @@ class Command(BaseCommand):
     help = 'Load movies from CSV file'
 
     def handle(self, *args, **kwargs):
+        def convert_gross(value):
+            if value and value != 'null':
+                if 'M' in value:
+                    return int(float(value.replace('$', '').replace('M', '')) * 1000000)
+                if 'K' in value:
+                    return int(float(value.replace('$', '').replace('K', '')) * 1000)
+            return None
 
         def convert_to_int(value):
             try:
@@ -29,7 +36,7 @@ class Command(BaseCommand):
                 Movie.objects.create(
                     title=row['MOVIES'],
                     year=convert_to_int(row['YEAR']),
-                    gross=convert_to_int(row['Gross']),
+                    gross=convert_gross(row['Gross']),
                     votes=convert_to_int(row['VOTES']),
                     rating=convert_to_float(row['RATING']),
                 )

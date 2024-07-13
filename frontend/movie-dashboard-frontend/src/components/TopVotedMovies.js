@@ -11,7 +11,7 @@ const TopVotedMovies = () => {
         setLoading(true);
         axios.get('http://localhost:8000/api/movies/top-votes/')
             .then(response => {
-                setData(response.data);
+                setData(response.data.slice(0, 5)); // Ensure we only get the top 5 movies
                 setLoading(false);
             })
             .catch(error => {
@@ -26,8 +26,15 @@ const TopVotedMovies = () => {
     return (
         <ResponsiveContainer width="100%" height={400}>
             <LineChart data={data}>
-                <XAxis dataKey="title" />
-                <YAxis />
+                <XAxis 
+                    dataKey="title" 
+                    tick={{ fontSize: 12 }} 
+                    angle={-45} 
+                    textAnchor="end" 
+                    interval={0} 
+                    tickFormatter={(value) => value.length > 15 ? `${value.substring(0, 15)}...` : value}
+                />
+                <YAxis tickFormatter={(tick) => new Intl.NumberFormat().format(tick)} />
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="votes" stroke="#8884d8" />
