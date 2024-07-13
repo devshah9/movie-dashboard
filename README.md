@@ -22,33 +22,35 @@ git clone https://github.com/yourusername/movie-dashboard.git
 cd movie-dashboard
 2. Environment Configuration
 Create two environment variable files, .env.backend and .env.db, in the root of your project.
-
-.env.backend
-dotenv
+```
+```.env.backend
 DATABASE_NAME=your_db_name
 DATABASE_USER=your_db_user
 DATABASE_PASSWORD=your_db_password
 DATABASE_HOST=db
 DATABASE_PORT=3306
+```
 
-.env.db
-dotenv
+```.env.db
 MYSQL_DATABASE=your_db_name
 MYSQL_USER=your_db_user
 MYSQL_PASSWORD=your_db_password
 MYSQL_ROOT_PASSWORD=your_root_password
+```
 3. Build and Start the Containers
 From the root directory of your project, run:
 
-bash
+```bash
 docker-compose up --build
+```
 4. Run Database Migrations and Load Initial Data
 Open another terminal and run:
 
-bash
+```bash
 
 docker-compose exec backend python manage.py migrate
 docker-compose exec backend python manage.py load_movies
+```
 5. Access the Application
 The React frontend will be available at http://localhost:3000.
 The Django backend API will be available at http://localhost:8000.
