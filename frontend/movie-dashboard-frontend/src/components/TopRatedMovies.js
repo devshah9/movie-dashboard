@@ -8,16 +8,18 @@ const TopRatedMovies = ({ year }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        setLoading(true);
-        axios.get(`http://localhost:8000/api/movies/top-rated/${year}/`)
-            .then(response => {
-                setData(response.data.slice(0, 5)); // Ensure we only get the top 5 movies
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error.message);
-                setLoading(false);
-            });
+        if (year) {
+            setLoading(true);
+            axios.get(`http://localhost:8000/api/movies/top-rated/${year}/`)
+                .then(response => {
+                    setData(response.data.slice(0, 5)); // Ensure we only get the top 5 movies
+                    setLoading(false);
+                })
+                .catch(error => {
+                    setError(error.message);
+                    setLoading(false);
+                });
+        }
     }, [year]);
 
     if (loading) return <p>Loading...</p>;

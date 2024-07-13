@@ -5,7 +5,11 @@ import TopVotedMovies from './components/TopVotedMovies';
 import TopRatedMovies from './components/TopRatedMovies';
 
 function App() {
-    const [year, setYear] = useState(2020);
+    const [year, setYear] = useState('');
+
+    const handleYearChange = (e) => {
+        setYear(e.target.value);
+    };
 
     return (
         <div className="App container-fluid">
@@ -17,7 +21,7 @@ function App() {
                         type="number" 
                         className="form-control"
                         value={year} 
-                        onChange={e => setYear(e.target.value)} 
+                        onChange={handleYearChange} 
                     />
                 </div>
             </header>
